@@ -5,3 +5,11 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+app.get('/',(req,res)=>{
+    res.send('Coffee Server is Connected')
+});
+
+app.listen(port,()=>{
+    console.log(`Coffee Server is running on port : ${port}`);
+})
