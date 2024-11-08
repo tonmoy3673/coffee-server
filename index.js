@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 5000;
 require('dotenv').config();
 app.use(cors());
 app.use(express.json());
 
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri =
-  "mongodb+srv://coffee:<db_password>@coffee.s1xws.mongodb.net/?retryWrites=true&w=majority&appName=coffee";
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@coffee.s1xws.mongodb.net/?retryWrites=true&w=majority&appName=coffee`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -25,9 +25,9 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
+      "MongoDB connected successfully!!"
     );
   } finally {
     // Ensures that the client will close when you finish/error
