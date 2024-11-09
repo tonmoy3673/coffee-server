@@ -30,15 +30,19 @@ async function run() {
 
     const coffeeCollection = client.db('coffeeDB').collection('coffee')
 
+    // ========== post api ===========//
     app.post('/coffees', async(req,res)=>{
       const coffee = req.body;
       const result = await coffeeCollection.insertOne(coffee);
       res.send(result);
-
-      console.log(coffee);
     })
 
-
+// ============ get api ===========//
+app.get('/coffees', async(req,res)=>{
+  const cursor = coffeeCollection.find();
+  const result = await cursor.toArray();
+  res.send(result);
+})
   
     console.log(
       "MongoDB connected successfully!!"
