@@ -60,6 +60,28 @@ app.get('/coffees/:id',async(req,res)=>{
   const result = await coffeeCollection.findOne(query);
   res.send(result);
 })
+
+// =============== Update Coffee =============//
+app.put('/coffees/:id',async(req,res)=>{
+  const id = req.params.id;
+  const query = {_id : new ObjectId(id)};
+  const options = { upsert: true };
+  const updatedCoffee = req.body;
+  const coffee ={
+    $set :{
+        name : updatedCoffee.name,
+        supplier : updatedCoffee.supplier,
+        price : updatedCoffee.price,
+        photo : updatedCoffee.photo,
+        taste : updatedCoffee.taste,
+        details : updatedCoffee.details,
+        chef : updatedCoffee.chef
+    }
+  }
+  const result = await coffeeCollection.updateOne(query,coffee,options);
+  res.send(result)
+
+})
   
     console.log(
       "MongoDB connected successfully!!"
