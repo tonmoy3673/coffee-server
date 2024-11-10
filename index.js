@@ -51,6 +51,15 @@ app.delete('/coffees/:id',async(req,res)=>{
   const result = await coffeeCollection.deleteOne(query);
   res.send(result);
 })
+
+// ============= get id of coffee api ============//
+
+app.get('/coffees/:id',async(req,res)=>{
+  const id = req.params.id;
+  const query = {_id : new ObjectId(id)};
+  const result = await coffeeCollection.findOne(query);
+  res.send(result);
+})
   
     console.log(
       "MongoDB connected successfully!!"
